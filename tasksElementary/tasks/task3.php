@@ -74,7 +74,7 @@ class SortedTriangles extends Task
         return $outputAsString;
     }
 
-    function run()
+    public function run()
     {
        return $this->sortingTriangles();
     }
@@ -84,8 +84,8 @@ class SortedTriangles extends Task
         $this->validate();
         if ($this->isValid) {
             $this->run();
-            return $this->outputAsString;
         }
+        return $this->outputAsString;
     }
 
 }
