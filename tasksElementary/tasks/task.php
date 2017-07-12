@@ -13,7 +13,7 @@ abstract class Task
         $this->validate();
         if ($this->isValid) {
             $this->run();
-            return $this->outputAsString;
         }
+        return $this->outputAsString;
     }
 }
