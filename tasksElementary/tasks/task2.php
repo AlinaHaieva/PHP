@@ -42,18 +42,18 @@ class Envelope extends Task
         return $outputAsString;
     }
 
-    function run()
+    public function run()
     {
        return true;
     }
 
-    function resolveAsString()
+    public function resolveAsString()
     {
         $this->validate();
         if ($this->isValid) {
             $this->run();
-            return $this->checkEnvelopeNesting();
         }
+        return $this->outputAsString;
     }
 }
 
