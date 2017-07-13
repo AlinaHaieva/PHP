@@ -17,5 +17,4 @@ class Dog extends Pet
     {
         return false;
     }
-
 }

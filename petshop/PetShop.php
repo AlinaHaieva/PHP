@@ -7,12 +7,22 @@
 
 class PetShop
 {
-    private $petsArray = [];
+    public $petsArray = [];
 
-    function getPetsArray()
+    public function addPet($pet) {
+        $this->petsArray = $pet;
+    }
+
+    function getCatsArray()
     {
-        $petsArray = [];
-        $petsDb = file_get_contents($file);
+        $catsArray = [];
+        foreach ($this->petsArray as $onePet) {
+            if ($onePet->type == "cat") {
+                $catsArray[] = $onePet;
+                return $catsArray;
+            }
+        }
+        return $catsArray;
     }
 
     public function getAllCats()

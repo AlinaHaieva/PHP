@@ -3,8 +3,6 @@ require_once "Pet.php";
 
 class Hamster extends Pet
 {
-    public $fluffiness;
-
     public function __construct($price, $color, $type)
     {
         $this->price = $price;
