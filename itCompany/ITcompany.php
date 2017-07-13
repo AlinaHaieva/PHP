@@ -7,12 +7,12 @@ class ITcompany
 
     public function addCandidate(Candidate $candidate)
     {
-        $this->candidates = $candidate;
+        $this->candidates[] = $candidate;
     }
 
     public function addTeam(Team $team)
     {
-        $this->teams = $team;
+        $this->teams[] = $team;
     }
 
     public function getTeams()
