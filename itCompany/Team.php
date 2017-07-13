@@ -26,7 +26,7 @@ class Team
     public function addTeamMember(HardSpecialist $newSpecialist)
     {
         if (!$this->isComplete()) {
-            $teamMembers = $newSpecialist;
+            $teamMembers[] = $newSpecialist;
             return $teamMembers;
         } else {
             return "Now it is enough workers in our team";
