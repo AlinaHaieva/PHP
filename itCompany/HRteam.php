@@ -6,11 +6,11 @@ class HRteam
     public $devRecruter;
     public $qcRecruter;
 
-    public function canFindSpecialist($position)
+    public function canFindSpecialist($need)
     {
         $candidatesAll = new ITCompany();
         foreach ($candidatesAll->candidates as $newcomer) {
-            if ($newcomer->cv === $position) {
+            if ($newcomer->cv === $need) {
                 return true;
             } else {
                 return false;
