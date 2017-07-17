@@ -1,6 +1,9 @@
 <?php
 
-class Candidate extends Person
+require_once "Person.php";
+require_once "IITWorker.php";
+
+class Candidate extends Person implements IITWorker
 {
     public $cv;
     public $wantedSalary;
@@ -10,5 +13,9 @@ class Candidate extends Person
         $this->name = $name;
         $this->wantedSalary = $wantedSalary;
         $this->cv = $cv;
+    }
+
+    public function doITWork() {
+        return "hoping to get job because can do IT work";
     }
 }

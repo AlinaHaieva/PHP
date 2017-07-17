@@ -26,15 +26,10 @@ class ITcompany
 
     public function hire($candidate, $teamNeedsArr)
     {
-        $profile = $candidate->cv;
         foreach ($teamNeedsArr as $need) {
-            $hiringHardSpecialists = new HRteam();
-            if ($need === "DEV" && $profile === $need) {
-                $hiringHardSpecialists->getDev();
-            } elseif ($need === "QC" && $profile === $need) {
-                $hiringHardSpecialists->getQC();
-            } elseif ($need === "PM" && $profile === $need) {
-                $hiringHardSpecialists->getPM();
+            if ($HR->canFindSpecialist($need)) {
+                $tm = $HR->getSpecialist($need);
+                $team->addTeamMember($tm);
             }
         }
     }

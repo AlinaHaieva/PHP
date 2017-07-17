@@ -1,6 +1,11 @@
 <?php
 
-abstract class HardSpecialist extends Worker
+require_once "Worker.php";
+require_once "IITWorker.php";
+
+class HardSpecialist extends Worker implements IITWorker
 {
-    abstract public function doWork();
+    public function doITWork() {
+        return "doing work";
+    }
 }

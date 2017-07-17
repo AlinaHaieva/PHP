@@ -2,50 +2,38 @@
 
 class HRteam
 {
-    public function getDev()
+    public $pmRecruter;
+    public $devRecruter;
+    public $qcRecruter;
+
+    public function canFindSpecialist($position)
     {
         $candidatesAll = new ITCompany();
         foreach ($candidatesAll->candidates as $newcomer) {
-            if ($newcomer->cv = "DEV") {
-                unset ($candidatesAll->candidates[$newcomer]);
-
-                $lookingForTeamForDev = new Team();
-                $teamForDev = $lookingForTeamForDev->addTeamMember($newcomer);
-
-                $newDev = new Dev($newcomer->name, $newcomer->wantedSalary, $newcomer->cv, $teamForDev);
-                return $newDev;
+            if ($newcomer->cv === $position) {
+                return true;
+            } else {
+                return false;
             }
         }
     }
 
-    public function getQc()
+    public function getSpecialist($position)
     {
         $candidatesAll = new ITCompany();
         foreach ($candidatesAll->candidates as $newcomer) {
-            if($newcomer->cv = "QC") {
-                unset ($candidatesAll->candidates[$newcomer]);
-
-                $lookingForTeamForQc = new Team();
-                $teamForQc = $lookingForTeamForQc->addTeamMember($newcomer);
-
-                $newQc = new QC($newcomer->name, $newcomer->wantedSalary, $newcomer->cv, $teamForQc);
-                return $newQc;
-            }
-        }
-    }
-
-    public function getPm()
-    {
-        $candidatesAll = new ITCompany();
-        foreach ($candidatesAll->candidates as $newcomer) {
-            if($newcomer->cv = "PM") {
-                unset ($candidatesAll->candidates[$newcomer]);
-
-                $lookingForTeamForPm = new Team();
-                $teamForPm = $lookingForTeamForPm->addTeamMember($newcomer);
-
-                $newPM = new PM($newcomer->name, $newcomer->wantedSalary, $newcomer->cv, $teamForPm);
-                return $newPM;
+            if ($newcomer->cv === $position) {
+                unset($candidatesAll->candidates[$newcomer]);
+                if ($position === "DEV") {
+                    $devRecruter = new DevRecruter();
+                    $devRecruter->getSpecialist($newcomer);
+                } elseif ($position === "QC") {
+                    $qcRecruter = new QCRecruter();
+                    $qcRecruter->getSpecialist($newcomer);
+                } else {
+                    $pmRecruter = new PMRecruter();
+                    $pmRecruter->getSpecialist($newcomer);
+                }
             }
         }
     }

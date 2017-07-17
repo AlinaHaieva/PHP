@@ -1,5 +1,7 @@
 <?php
 
+require_once "Worker.php";
+
 class HR extends Worker
 {
     public function __construct($name, $salary, $position, $team)
@@ -10,7 +12,7 @@ class HR extends Worker
         $this->team = $team;
     }
 
-    public function doWork()
+    public function hunt()
     {
         return "Interview candidates";
     }

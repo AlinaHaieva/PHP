@@ -1,5 +1,7 @@
 <?php
 
+require_once "HardSpecialist.php";
+
 class Dev extends HardSpecialist
 {
     public function __construct($name, $salary, $position, $team)
@@ -10,7 +12,7 @@ class Dev extends HardSpecialist
         $this->team = $team;
     }
 
-    public function doWork()
+    public function doITWork()
     {
         return "is developing";
     }
