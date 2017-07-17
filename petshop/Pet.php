@@ -4,11 +4,6 @@ abstract class Pet
     public $color;
     public $price;
 
-    public function isFluffy()
-    {
-        return "Absolutely fluffy; ";
-    }
-
     public function isYourName($name)
     {
         if ($name !== $this->name) {

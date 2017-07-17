@@ -7,58 +7,53 @@
 
 class PetShop
 {
-    public $petsArray = [];
+    public $petsArr = [];
 
     public function addPet($pet) {
-        $this->petsArray = $pet;
+        $this->petsArr[] = $pet;
     }
 
-    function getCatsArray()
+    public function getCats()
     {
         $catsArray = [];
-        foreach ($this->petsArray as $onePet) {
-            if ($onePet->type == "cat") {
-                $catsArray[] = $onePet;
-                return $catsArray;
-            }
-        }
-        return $catsArray;
-    }
 
-    public function getAllCats()
-    {
-        $catsArray = [];
-        foreach ($this->petsArray as $pet) {
-            if ($pet instanceof Cat) {
+        foreach ($this->petsArr as $pet) {
+            if ($pet->type === "cat") {
                 $catsArray[] = $pet;
             }
         }
-        return $catsArray;
+
+        $catsString = implode(";", $catsArray);
+        return $catsString;
     }
 
     public function getWhiteOrFluffy()
     {
         $whiteOrFluffyArray = [];
 
-        foreach($this->petsArray as $pet) {
-            if ($pet->isYourColor() === "white" || $pet->isFluffy() !== false) {
+        foreach($this->petsArr as $pet) {
+            if ($pet->color == "white" || $pet->isFluffy()) {
                 $whiteOrFluffy[] = $pet;
             }
         }
-        return $whiteOrFluffyArray;
+
+        $whiteOrFluffyPetsString = implode(";", $whiteOrFluffyArray);
+        return $whiteOrFluffyPetsString;
     }
 
     public function getExpensive($averagePrice)
     {
         $theMostExpensive = [];
 
-        foreach ($this->petsArray as $pet) {
+        foreach ($this->petsArr as $pet) {
             if ($pet->price <= $averagePrice) {
                 continue;
             } else {
-                return $theMostExpensive[] = $pet;
+                $theMostExpensive[] = $pet;
             }
         }
-        return $theMostExpensive;
+
+        $expensivePetsString = implode(";", $theMostExpensive);
+        return $expensivePetsString;
     }
 }

@@ -10,7 +10,7 @@ class Dog extends Pet
         $this->price = $price;
         $this->color = $color;
         $this->name = $name;
-        $this->type = "dog";
+        $this->type = $type;
     }
 
     public function isFluffy()
