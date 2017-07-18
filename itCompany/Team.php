@@ -3,12 +3,21 @@
 class Team
 {
     public $teamName;
-    public $teamMembers = ["pm"];
-    public $needs = ["pm","dev","dev","qc"];
+    public $project;
+    public $teamMembers = [];
+    public $needs = [];
+
+    public function __construct($teamName, $project, $teamMembers, $needs)
+    {
+        $this->teamName = $teamName;
+        $this->project = $project;
+        $this->teamMembers = ["dev"];
+        $this->needs = ["pm", "qc", "dev", "dev"];
+    }
 
     public function isComplete()
     {
-        if ($this->needs == $this->teamMembers) {
+        if ($this->needs === $this->teamMembers) {
             return true;
         }
         return false;
@@ -23,7 +32,7 @@ class Team
         }
     }
 
-    public function addTeamMember(HardSpecialist $newSpecialist)
+    public function addTeamMember($newSpecialist)
     {
         if (!$this->isComplete()) {
             $teamMembers[] = $newSpecialist;

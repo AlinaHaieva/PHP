@@ -1,5 +1,10 @@
 <?php
 
+require_once "Team.php";
+require_once "Candidate.php";
+require_once "Team.php";
+require_once "HRteam.php";
+
 class ITcompany
 {
     public $candidates = [];
@@ -15,28 +20,25 @@ class ITcompany
         $this->teams[] = $team;
     }
 
-    public function getTeams()
+    public function hire()
     {
-        $teamNeedsArr = [];
-        foreach ($this->teams as $receivedTeam) {
-            $teamNeedsArr[$receivedTeam] = $receivedTeam->getNeeds();
-        }
-        return $teamNeedsArr;
-    }
-
-    public function hire($candidate, $teamNeedsArr)
-    {
-        foreach ($teamNeedsArr as $need) {
-            if ($HR->canFindSpecialist($need)) {
-                $tm = $HR->getSpecialist($need);
-                $team->addTeamMember($tm);
+        foreach ($this->teams as $team) {
+            $teamNeeds = $team->getNeeds();
+            foreach ($teamNeeds as $need) {
+                $hrTeam = new HRteam();
+                if ($hrTeam->canFindSpecialist($need)) {
+                    $gotWorker = $hrTeam->getSpecialist($need);
+                    $team->addTeamMember($gotWorker);
+                    unset($teamNeeds[$need]);
+                }
             }
         }
     }
 
     public function getFun()
     {
-        $teamInWork = new Team();
-        return $teamInWork->doJob();
+        foreach ($this->teams as $team) {
+            $team->doJob();
+        }
     }
 }

@@ -1,40 +1,35 @@
 <?php
 
+require_once "PMRecruter.php";
+require_once "QCRecruter.php";
+require_once "DevRecruter.php";
+
 class HRteam
 {
     public $pmRecruter;
     public $devRecruter;
     public $qcRecruter;
+    public $recruters = [];
+
+    public function __construct()
+    {
+        $this->recruters = ["pm" => new PMRecruter(), "qc" => new QCRecruter(), "dev" => new DevRecruter()];
+    }
 
     public function canFindSpecialist($need)
     {
-        $candidatesAll = new ITCompany();
-        foreach ($candidatesAll->candidates as $newcomer) {
-            if ($newcomer->cv === $need) {
-                return true;
-            } else {
-                return false;
-            }
-        }
+        $isNeed = array_key_exists($need, $this->recruters);
+        return $isNeed;
     }
 
-    public function getSpecialist($position)
+    public function getSpecialist($need)
     {
-        $candidatesAll = new ITCompany();
-        foreach ($candidatesAll->candidates as $newcomer) {
-            if ($newcomer->cv === $position) {
-                unset($candidatesAll->candidates[$newcomer]);
-                if ($position === "DEV") {
-                    $devRecruter = new DevRecruter();
-                    $devRecruter->getSpecialist($newcomer);
-                } elseif ($position === "QC") {
-                    $qcRecruter = new QCRecruter();
-                    $qcRecruter->getSpecialist($newcomer);
-                } else {
-                    $pmRecruter = new PMRecruter();
-                    $pmRecruter->getSpecialist($newcomer);
-                }
-            }
+        if ($need === "pm") {
+            return $this->recruters["pm"];
+        } elseif ($need === "pm") {
+            return $this->recruters["qc"];
+        } else {
+            return $this->recruters["dev"];
         }
     }
 }
