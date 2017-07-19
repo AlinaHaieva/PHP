@@ -22,13 +22,13 @@ class ITcompany
 
     public function hire()
     {
+        $hrTeam = new HRteam();
         foreach ($this->teams as $team) {
             $teamNeeds = $team->getNeeds();
             foreach ($teamNeeds as $need) {
-                $hrTeam = new HRteam();
                 if ($hrTeam->canFindSpecialist($need)) {
-                    $gotWorker = $hrTeam->getSpecialist($need);
-                    $team->addTeamMember($gotWorker);
+//                    $rightHR = $hrTeam->getSpecialist($need);
+////                    $rightHR->addTeamMember();
                     unset($teamNeeds[$need]);
                 }
             }
@@ -38,7 +38,9 @@ class ITcompany
     public function getFun()
     {
         foreach ($this->teams as $team) {
+            echo $team->teamName;
             $team->doJob();
+            echo "<br>";
         }
     }
 }

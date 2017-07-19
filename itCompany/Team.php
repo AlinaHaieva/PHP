@@ -7,47 +7,49 @@ class Team
     public $teamMembers = [];
     public $needs = [];
 
-    public function __construct($teamName, $project, $teamMembers, $needs)
+    public function __construct($teamName, $project) // $teamMembers, $needs)
     {
         $this->teamName = $teamName;
         $this->project = $project;
-        $this->teamMembers = ["dev"];
-        $this->needs = ["pm", "qc", "dev", "dev"];
+//        $this->teamMembers = [];
+//        $this->needs = [];
     }
 
     public function isComplete()
     {
-        if ($this->needs === $this->teamMembers) {
+        if (sort($this->needs) === sort($this->teamMembers)) {
             return true;
         }
         return false;
     }
 
+    public function addNeeds($need)
+    {
+        $this->needs[] = $need;
+    }
+
     public function getNeeds()
     {
-        if (!$this->isComplete()){
+        if ($this->isComplete()){
             return $this->needs;
         } else {
-            return "Now it is enough workers in our team";
+//            throw new Exception("Now it is enough workers in our team");
+            return [];
         }
     }
 
     public function addTeamMember($newSpecialist)
     {
-        if (!$this->isComplete()) {
-            $teamMembers[] = $newSpecialist;
-            return $teamMembers;
-        } else {
-            return "Now it is enough workers in our team";
-        }
+//        if (!$this->isComplete()) {
+            $this->teamMembers[] = $newSpecialist;
     }
 
     public function doJob()
     {
         if (!$this->isComplete()){
-            return "Team needs members.";
+            echo "Team needs members.";
         } else {
-            return "Team complete and works hard!";
+            echo "Team complete and works hard!";
         }
     }
 }

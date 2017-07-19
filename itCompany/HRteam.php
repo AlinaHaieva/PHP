@@ -13,23 +13,26 @@ class HRteam
 
     public function __construct()
     {
-        $this->recruters = ["pm" => new PMRecruter(), "qc" => new QCRecruter(), "dev" => new DevRecruter()];
+        $this->recruters = [ProfileEnum::PM => new PMRecruter(), ProfileEnum::QC => new QCRecruter(), ProfileEnum::DEV => new DevRecruter()];
     }
 
     public function canFindSpecialist($need)
     {
-        $isNeed = array_key_exists($need, $this->recruters);
-        return $isNeed;
+        if (array_key_exists($need, $this->recruters)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public function getSpecialist($need)
     {
-        if ($need === "pm") {
-            return $this->recruters["pm"];
-        } elseif ($need === "pm") {
-            return $this->recruters["qc"];
+        if ($need === ProfileEnum::QC) {
+            return $this->recruters[$need]->getSpecialist();
+        } elseif ($need === ProfileEnum::DEV) {
+            return $this->recruters[$need]->getSpecialist();
         } else {
-            return $this->recruters["dev"];
+            return $this->recruters[$need]->getSpecialist();
         }
     }
 }
