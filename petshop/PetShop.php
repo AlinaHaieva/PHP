@@ -23,7 +23,7 @@ class PetShop
             }
         }
 
-        $catsString = implode(";", $catsArray);
+        $catsString = serialize($catsArray);
         return $catsString;
     }
 
@@ -32,12 +32,12 @@ class PetShop
         $whiteOrFluffyArray = [];
 
         foreach($this->petsArr as $pet) {
-            if ($pet->color == "white" || $pet->isFluffy()) {
-                $whiteOrFluffy[] = $pet;
+            if (($pet->color == "white") || ($pet->isFluffy())) {
+                $whiteOrFluffyArray[] = $pet;
             }
         }
 
-        $whiteOrFluffyPetsString = implode(";", $whiteOrFluffyArray);
+        $whiteOrFluffyPetsString = serialize($whiteOrFluffyArray);
         return $whiteOrFluffyPetsString;
     }
 
@@ -53,7 +53,7 @@ class PetShop
             }
         }
 
-        $expensivePetsString = implode(";", $theMostExpensive);
+        $expensivePetsString = serialize($theMostExpensive);
         return $expensivePetsString;
     }
 }

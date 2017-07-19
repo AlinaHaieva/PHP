@@ -1,8 +1,9 @@
 ﻿<?php
 require_once "Pet.php";
 require_once "Fluffy.php";
+require_once "JsonSerializablePets.php";
 
-class Cat extends Pet
+class Cat extends Pet implements JsonSerializablePets
 {
     public $name;
 
@@ -13,6 +14,11 @@ class Cat extends Pet
         $this->name = $name;
         $this->fluffiness = $fluffiness;
         $this->type = $type;
+    }
+
+    public function jsonSerialize()
+    {
+        return $this;
     }
 
     use Fluffy;

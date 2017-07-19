@@ -17,7 +17,7 @@ abstract class Pet
         if ($color !== $this->color) {
             return "Is my color {$color}? No, I have another color, I am {$this->color}; ";
         } else {
-            return $this->color;
+            return "Yes, I am {$this->color}";
         }
     }
 }

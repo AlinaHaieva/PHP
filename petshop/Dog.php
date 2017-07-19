@@ -1,7 +1,8 @@
 ﻿<?php
 require_once "Pet.php";
+require_once "JsonSerializablePets.php";
 
-class Dog extends Pet
+class Dog extends Pet implements JsonSerializablePets
 {
     public $name;
 
@@ -16,5 +17,10 @@ class Dog extends Pet
     public function isFluffy()
     {
         return false;
+    }
+
+    public function jsonSerialize()
+    {
+        return $this;
     }
 }

@@ -6,17 +6,17 @@
     require_once 'Hamster.php';
 
 //  Creating new pets
-    $firstCat = new Cat("40", "white", "FirstCat", 1, "cat");
-    $secondCat = new Cat("50", "white", "SecondCat", 10, "cat");
-    $thirdCat = new Cat("100", "white", "ThirdCat", 7, "cat");
+    $firstCat = new Cat(40, "white", "FirstCat", 1, "cat");
+    $secondCat = new Cat(50, "black", "SecondCat", 10, "cat");
+    $thirdCat = new Cat(100, "white", "ThirdCat", 7, "cat");
 
-    $firstDog = new Dog("40", "white", "FirstDog", "dog");
-    $secondDog = new Dog("50", "white", "SecondDog", "dog");
-    $thirdDog = new Dog("100", "white", "ThirdDog", "dog");
+    $firstDog = new Dog(40, "white", "FirstDog", "dog");
+    $secondDog = new Dog(50, "black", "SecondDog", "dog");
+    $thirdDog = new Dog(100, "white", "ThirdDog", "dog");
 
-    $firstHamster = new Hamster("40", "white", 5, "hamster");
-    $secondHamster = new Hamster("50", "white", 8, "hamster");
-    $thirdHamster = new Hamster("100", "white", 9, "hamster");
+    $firstHamster = new Hamster(40, "white", 5, "hamster");
+    $secondHamster = new Hamster(50, "black", 8, "hamster");
+    $thirdHamster = new Hamster(100, "white", 9, "hamster");
 
 //  Adding created pets to array
     $petsArray = new Petshop();
@@ -44,21 +44,25 @@
     if (isset($_POST['allCats'])) {
         $allCats = $petsArray->getCats();
         $current .= $allCats;
-        file_put_contents($file, $current);
+        file_put_contents($file, json_encode($current));
         echo $petsArray->getCats();
     }
+
+    echo "<hr>";
 
     if (isset($_POST['expensivePets'])) {
         $expensivePets = $petsArray->getExpensive(50);
         $current .= $expensivePets;
-        file_put_contents($file, $current);
+        file_put_contents($file, json_encode($current));
         echo $petsArray->getExpensive(50);
     }
+
+    echo "<hr>";
 
     if (isset($_POST['whiteOrFluffyPets'])) {
         $whiteOrFluffyPets = $petsArray->getWhiteOrFluffy();
         $current .= $whiteOrFluffyPets;
-        file_put_contents($file, $current);
+        file_put_contents($file, json_encode($current));
         echo $petsArray->getWhiteOrFluffy();
     }
 ?>

@@ -1,8 +1,9 @@
 ﻿<?php
 require_once "Pet.php";
 require_once "Fluffy.php";
+require_once "JsonSerializablePets.php";
 
-class Hamster extends Pet
+class Hamster extends Pet implements JsonSerializablePets
 {
     public function __construct($price, $color, $fluffiness, $type)
     {
@@ -19,5 +20,8 @@ class Hamster extends Pet
         return "Call me just Hamster; ";
     }
 
-
+    public function jsonSerialize()
+    {
+        return $this;
+    }
 }
