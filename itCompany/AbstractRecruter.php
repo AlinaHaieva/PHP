@@ -2,5 +2,5 @@
 
 abstract class AbstractRecruter
 {
-    abstract public function getSpecialist(HardSpecialist $specialist);
+    abstract public function getSpecialist(HardSpecialist $specialist, $team);
 }

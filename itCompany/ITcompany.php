@@ -23,13 +23,16 @@ class ITcompany
     public function hire()
     {
         $hrTeam = new HRteam();
+        $allCandidates = $this->candidates;
+
         foreach ($this->teams as $team) {
             $teamNeeds = $team->getNeeds();
             foreach ($teamNeeds as $need) {
                 if ($hrTeam->canFindSpecialist($need)) {
-//                    $rightHR = $hrTeam->getSpecialist($need);
-////                    $rightHR->addTeamMember();
+                    $newWorker = $hrTeam->getSpecialist($need, $allCandidates, $team);
+                    $team->addTeamMember($newWorker);
                     unset($teamNeeds[$need]);
+                    unset($this->candidates[$newWorker]);
                 }
             }
         }

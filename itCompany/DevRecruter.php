@@ -4,12 +4,9 @@ require_once "AbstractRecruter.php";
 
 class DevRecruter extends AbstractRecruter
 {
-    public function getSpecialist(HardSpecialist $newcomer)
+    public function getSpecialist(HardSpecialist $candidate, $team)
     {
-//        $lookingForTeam = new Team();
-//        $teamForDevCandidate = $lookingForTeam->addTeamMember($newcomer);
-
-        $newDev = new Dev($newcomer->name, $newcomer->wantedSalary, $newcomer->cv, $teamForDevCandidate);
+        $newDev = new Dev($candidate->name, $candidate->wantedSalary, $candidate->cv, $team->teamName);
         return $newDev;
     }
 }

@@ -25,14 +25,12 @@ class HRteam
         }
     }
 
-    public function getSpecialist($need)
+    public function getSpecialist($need, $allCandidates, $team)
     {
-        if ($need === ProfileEnum::QC) {
-            return $this->recruters[$need]->getSpecialist();
-        } elseif ($need === ProfileEnum::DEV) {
-            return $this->recruters[$need]->getSpecialist();
-        } else {
-            return $this->recruters[$need]->getSpecialist();
-        }
+        foreach ($allCandidates as $candidate) {
+            if ($candidate->cv === $need) {
+                return $this->recruters[$need]->getSpecialist($candidate, $team);
+            }
+        } return false;
     }
 }

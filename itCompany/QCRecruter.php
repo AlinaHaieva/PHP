@@ -4,12 +4,9 @@ require_once "AbstractRecruter.php";
 
 class QCRecruter extends AbstractRecruter
 {
-    public function getSpecialist(HardSpecialist $newcomer)
+    public function getSpecialist(HardSpecialist $candidate, $team)
     {
-//        $lookingForTeam = new Team();
-//        $teamForQCCandidate = $lookingForTeam->addTeamMember($newcomer);
-
-        $newQC = new QC($newcomer->name, $newcomer->wantedSalary, $newcomer->cv, $teamForQCCandidate);
+        $newQC = new QC($candidate->name, $candidate->wantedSalary, $candidate->cv, $team->teamName);
         return $newQC;
     }
 }

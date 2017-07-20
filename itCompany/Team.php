@@ -7,12 +7,10 @@ class Team
     public $teamMembers = [];
     public $needs = [];
 
-    public function __construct($teamName, $project) // $teamMembers, $needs)
+    public function __construct($teamName, $project)
     {
         $this->teamName = $teamName;
         $this->project = $project;
-//        $this->teamMembers = [];
-//        $this->needs = [];
     }
 
     public function isComplete()
@@ -40,8 +38,9 @@ class Team
 
     public function addTeamMember($newSpecialist)
     {
-//        if (!$this->isComplete()) {
+        if ($this->isComplete()) {
             $this->teamMembers[] = $newSpecialist;
+        }
     }
 
     public function doJob()
