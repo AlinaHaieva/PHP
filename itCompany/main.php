@@ -68,8 +68,8 @@ print_r($company->teams);
 echo "<hr>";
 
 //Calling the functions
-$company->hire();
-$company->getFun();
+ $company->hire();
+echo $company->getFun();
 echo "<hr>";
 
 echo "List of teams that should changes after process: <br>";

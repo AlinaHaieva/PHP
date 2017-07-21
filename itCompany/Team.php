@@ -46,9 +46,9 @@ class Team
     public function doJob()
     {
         if (!$this->isComplete()){
-            echo "Team needs members.";
+            return "Team needs members.";
         } else {
-            echo "Team complete and works hard!";
+            return "Team complete and works hard!";
         }
     }
 }
