@@ -1,15 +1,17 @@
 ﻿<?php
 abstract class Pet
 {
-    protected $name;
-    protected $color;
-    protected $price;
+    public $name;
+    public $color;
+    public $price;
+    public $fluffiness;
 
-    public function __construct($name, $price, $color)
+    public function __construct($name, $price, $color, $fluffiness)
     {
         $this->name = $name;
         $this->price = $price;
         $this->color = $color;
+        $this->fluffiness = $fluffiness;
     }
 
     public function getName()

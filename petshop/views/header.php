@@ -12,8 +12,8 @@
 
         <main>
             <div class="left">
-                <a href="allCats.php" class="link">All cats</a>
-                <a href="whiteOrFluffy.php" class="link">White or fluffy pets</a>
-                <a href="expensivePets.php" class="link">Expensive pets</a>
+                <a href="./index.php?action=actionCats" class="link">All cats</a>
+                <a href="./index.php?action=actionWhiteFluffy" class="link">White or fluffy pets</a>
+                <a href="./index.php?&action=actionExpensive" class="link">Expensive pets</a>
             </div>
             <div class="center">

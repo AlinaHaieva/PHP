@@ -1,11 +1,12 @@
 <?php require_once("header.php")?>
-<p>All cats:
+<h3>All cats:</h3>
+<p>
     <?php
-        foreach ($catsArray as $cat) {
-            $eachCat = $this->name . " costs: " . $this->price . ", color: " . $this->color . ", fluffiness equal "
-                     . $this->fluffiness . "\n";
+        foreach ($allCats as $cat) {
+            $eachCat = $cat->name . " costs: " . $cat->price . ", color: " . $cat->color . ", fluffiness equal "
+                     . $cat->fluffiness . "<br>";
             echo $eachCat;
         }
     ?>
-<p>
+</p>
 <?php require_once("footer.php")?>

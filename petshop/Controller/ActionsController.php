@@ -1,29 +1,29 @@
 <?php
-require_once("../Models/PetShop.php");
+require_once("./Models/PetShop.php");
 
 class ActionsController
 {
     public function actionCats()
     {
         $model = new Petshop();
-        $model->getCats();
+        $allCats = $model->getCats();
 
-        require_once("../views/allCats.php");
+        require_once("./views/allCats.php");
     }
 
-    public function actionFluffy()
+    public function actionWhiteFluffy()
     {
         $model = new Petshop();
-        $model->getWhiteOrFluffy();
+        $whiteOrFluffy = $model->getWhiteOrFluffy();
 
-        require_once("../views/expensivePets.php");
+        require_once("./views/whiteOrFluffy.php");
     }
 
     public function  actionExpensive()
     {
         $model = new Petshop();
-        $model->getExpensive();
+        $expensivePets = $model->getExpensive();
 
-        require_once("../views/whiteOrFluffy.php");
+        require_once("./views/expensivePets.php");
     }
 }

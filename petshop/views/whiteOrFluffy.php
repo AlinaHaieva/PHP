@@ -1,11 +1,12 @@
 <?php require_once("header.php")?>
-<p>White or fluffy pets:
+    <h3>White or fluffy pets:</h3>
+<p>
     <?php
-        foreach ($whiteOrFluffyArray as $pet) {
-            $eachPet = $this->name . " costs: " . $this->price . ", color: " . $this->color . ", fluffiness equal "
-                      . $this->fluffiness . "\n";
+        foreach ($whiteOrFluffy as $pet) {
+            $eachPet = $pet->name . " costs: " . $pet->price . ", color: " . $pet->color . ", fluffiness equal "
+                         . $pet->fluffiness . "<br>";
             echo $eachPet;
         }
     ?>
-<p>
+</p>
 <?php require_once("footer.php")?>

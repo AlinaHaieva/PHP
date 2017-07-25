@@ -5,11 +5,13 @@
 
 class PetShop
 {
-    private $petsArray = [];
+    public $petsArray = [];
+    public $catsArray = [];
 
     public function __construct()
     {
         $this->petsArray = $this->getAllPets();
+        $this->catsArray = $this->getCats();
     }
 
     public function getAllPets()
@@ -55,7 +57,7 @@ class PetShop
         $whiteOrFluffyArray = [];
 
         foreach($this->petsArray as $pet) {
-            if (($pet->color === "white") || ($pet->isFluffy())) {
+            if (($pet->color === "white") || ($pet->fluffiness > 5)) {
                 $whiteOrFluffyArray[] = $pet;
             }
         }

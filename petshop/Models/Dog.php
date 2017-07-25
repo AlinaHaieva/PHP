@@ -5,14 +5,7 @@ class Dog extends Pet
 {
     public function __construct($name, $price, $color, $fluffiness, $type)
     {
-        parent::__construct($name, $price, $color);
-        $this->fluffiness = $this->isFluffy();
+        parent::__construct($name, $price, $color, $fluffiness);
         $this->type = "dog";
     }
-
-    public function isFluffy()
-    {
-        return false;
-    }
-
 }
