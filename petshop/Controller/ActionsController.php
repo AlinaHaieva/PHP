@@ -1,5 +1,5 @@
 <?php
-require_once("./Models/PetShop.php");
+require("./Models/PetShop.php");
 
 class ActionsController
 {
@@ -8,7 +8,7 @@ class ActionsController
         $model = new Petshop();
         $allCats = $model->getCats();
 
-        require_once("./views/allCats.php");
+        require("./views/allCats.php");
     }
 
     public function actionWhiteFluffy()
@@ -16,7 +16,7 @@ class ActionsController
         $model = new Petshop();
         $whiteOrFluffy = $model->getWhiteOrFluffy();
 
-        require_once("./views/whiteOrFluffy.php");
+        require("./views/whiteOrFluffy.php");
     }
 
     public function  actionExpensive()
@@ -24,6 +24,6 @@ class ActionsController
         $model = new Petshop();
         $expensivePets = $model->getExpensive();
 
-        require_once("./views/expensivePets.php");
+        require("./views/expensivePets.php");
     }
 }

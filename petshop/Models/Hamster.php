@@ -7,6 +7,6 @@ class Hamster extends Pet
     {
         parent::__construct($name, $price, $color, $fluffiness);
         $this->name = "Hamster";
-        $this->type = "hamster";
+        $this->type = Constants::PET_TYPE_HAMSTER;
     }
 }

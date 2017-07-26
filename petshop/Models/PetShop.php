@@ -2,6 +2,7 @@
     require_once("Cat.php");
     require_once("Dog.php");
     require_once("Hamster.php");
+    require_once("Constants.php");
 
 class PetShop
 {
@@ -11,7 +12,6 @@ class PetShop
     public function __construct()
     {
         $this->petsArray = $this->getAllPets();
-        $this->catsArray = $this->getCats();
     }
 
     public function getAllPets()
@@ -19,19 +19,20 @@ class PetShop
         $allPets = [];
         $dbh = new PDO("mysql:host=localhost;dbname=db_petshop", "root", "");
 
-        foreach ($dbh->query('SELECT * FROM petshop') as $row) {
+        $query = $dbh->query('SELECT * FROM petshop');
 
+        foreach ($query as $row) {
             $name = $row["name"];
             $price = $row["price"];
             $color = $row["color"];
             $fluffiness = $row["fluffiness"];
             $type = $row["type"];
 
-            if ($row["type"] === "cat") {
+            if ($type === Constants::PET_TYPE_CAT) {
                 $allPets[] = new Cat($name, $price, $color, $fluffiness, $type);
-            } elseif ($row["type"] === "dog") {
+            } elseif ($type === Constants::PET_TYPE_DOG) {
                 $allPets[] = new Dog($name, $price, $color, $fluffiness, $type);
-            } elseif ($row["type"] === "hamster") {
+            } elseif ($type === Constants::PET_TYPE_HAMSTER) {
                 $allPets[] = new Dog($name, $price, $color, $fluffiness, $type);
             }
         }
@@ -44,7 +45,7 @@ class PetShop
         $catsArray = [];
 
         foreach ($this->petsArray as $pet) {
-            if ($pet->type === "cat") {
+            if ($pet->type === Constants::PET_TYPE_CAT) {
                 $catsArray[] = $pet;
             }
         }
@@ -57,7 +58,7 @@ class PetShop
         $whiteOrFluffyArray = [];
 
         foreach($this->petsArray as $pet) {
-            if (($pet->color === "white") || ($pet->fluffiness > 5)) {
+            if ($pet->color === Constants::PET_COLOR_WHITE || $pet->fluffiness > Constants::MIN_FLUFFY_LEVEL) {
                 $whiteOrFluffyArray[] = $pet;
             }
         }
@@ -65,7 +66,7 @@ class PetShop
         return $whiteOrFluffyArray;
     }
 
-    public function averagePrice()
+    private function averagePrice()
     {
         $price = [];
 
