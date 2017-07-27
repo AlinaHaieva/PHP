@@ -3,6 +3,7 @@
 require_once "PMRecruter.php";
 require_once "QCRecruter.php";
 require_once "DevRecruter.php";
+require_once "ConstantsIT.php";
 
 class HRteam
 {
@@ -11,9 +12,9 @@ class HRteam
     public function __construct()
     {
         $this->recruters = [
-            ProfileEnum::PM => new PMRecruter(),
-            ProfileEnum::QC => new QCRecruter(),
-            ProfileEnum::DEV => new DevRecruter()
+            ConstantsIT::DEV => new DevRecruter(),
+            ConstantsIT::QC => new QCRecruter(),
+            ConstantsIT::PM => new PMRecruter()
         ];
     }
 }

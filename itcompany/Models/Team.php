@@ -1,10 +1,15 @@
 <?php
 
+require_once "ConstantsIT.php";
+require_once "Dev.php";
+require_once "QC.php";
+require_once "PM.php";
+
 class Team
 {
     public $teamName;
     public $project;
-    public $teamMembers = [];
+    private $teamMembers = [];
     public $needs = [];
 
     public function __construct($teamName, $project)
@@ -13,33 +18,71 @@ class Team
         $this->project = $project;
     }
 
+    public function getTeamMembers() {
+        $dbh = new PDO("mysql:host=localhost;dbname=db_tasks", "root", "");
+        $teamMembersQuery = $dbh->query('SELECT * FROM it_teams_members');
+
+        foreach ($teamMembersQuery as $row) {
+            $name = $row["name"];
+            $salary = $row["salary"];
+            $position = $row["position"];
+            $team = $row["team"];
+
+            if ($position === ConstantsIT::DEV) {
+                $this->teamMembers[] = new Dev($name, $salary, $position, $team);
+            } elseif ($position === ConstantsIT::QC) {
+                $this->teamMembers[] = new QC($name, $salary, $position, $team);
+            } elseif ($position === ConstantsIT::PM) {
+                $this->teamMembers[] = new PM($name, $salary, $position, $team);
+            }
+        }
+
+        return $this->teamMembers;
+    }
+
+    public function getTeamNeeds() {
+        $teamNeedsQuery = ITcompany::dbTasksConnect()->selectData("it_teams_needs");
+
+        foreach ($teamNeedsQuery as $row) {
+            $devNeed = $row["dev_need"];
+            $pmNeed = $row["pm_need"];
+            $qcNeed = $row["qc_need"];
+            $team = $row["id"];
+
+            $this->needs[$team] = [
+                ConstantsIT::DEV => $devNeed,
+                ConstantsIT::QC => $qcNeed,
+                ConstantsIT::PM => $pmNeed
+            ];
+        }
+
+        return $this->needs;
+    }
+
     public function isComplete()
     {
-        if (sort($this->needs) === sort($this->teamMembers)) {
-            return true;
-        }
-        return false;
+        //return true if associative array is empty:
+        return empty(array_filter($this->getTeamNeeds()));
+
+//Is this syntax better?
+//        if (empty(array_filter($this->getTeamNeeds()))) {
+//             true;
+//        }
+//        return false;
     }
 
-    public function addNeeds($need)
-    {
-        $this->needs[] = $need;
+    public function addTeamMember($newMember) {
+        $this->teamMembers[] = $newMember;
+
+        $this->unsetNeed($newMember->position);
     }
 
-    public function getNeeds()
-    {
-        if ($this->isComplete()){
-            return $this->needs;
-        } else {
-//            throw new Exception("Now it is enough workers in our team");
-            return [];
-        }
-    }
-
-    public function addTeamMember($newSpecialist)
-    {
-        if ($this->isComplete()) {
-            $this->teamMembers[] = $newSpecialist;
+    public function unsetNeed($position) {
+        foreach ($this->needs as $need => $neededQuantity){
+            if ($need === $position){
+                $neededQuantity--;
+            }
+            $this->needs[$need] = $neededQuantity;
         }
     }
 

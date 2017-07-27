@@ -7,37 +7,62 @@ require_once "HRteam.php";
 
 class ITcompany
 {
-    public $candidates = [];
-    public $teams = [];
+    private $candidates = [];
+    private $teams = [];
 
-    public function addCandidate(Candidate $candidate)
-    {
-        $this->candidates[] = $candidate;
+    public function getCandidates() {
+        $dbh = new PDO("mysql:host=localhost;dbname=db_tasks", "root", "");
+        $candidatesQuery = $dbh->query('SELECT * FROM it_candidates');
+
+        foreach ($candidatesQuery as $row) {
+            $name = $row["name"];
+            $wantedSalary = $row["wanted_salary"];
+            $cv = $row["cv"];
+
+            $this->candidates[] = new Candidate($name, $wantedSalary, $cv);
+        }
+
+        return $this->candidates;
     }
 
-    public function addTeam(Team $team)
-    {
-        $this->teams[] = $team;
+    public function getTeams() {
+        $dbh = new PDO("mysql:host=localhost;dbname=db_tasks", "root", "");
+        $teamsQuery = $dbh->query('SELECT * FROM it_teams');
+
+        foreach ($teamsQuery as $row) {
+            $teamName = $row["name"];
+            $project = $row["project"];
+
+            $this->teams[] = new Team($teamName, $project);
+        }
+
+        return $this->teams;
     }
 
     public function hire()
     {
         $hrTeam = new HRteam();
-        $allCandidates = $this->candidates;
-        foreach ($this->teams as $team) {
-            $teamNeeds = $team->getNeeds();
-            foreach ($teamNeeds as $need) {
-                $recruter = $hrTeam->recruters[$need];
-                $recruter->getSpecialist($allCandidates, $need);
-                unset($teamNeeds[$need]);
+        $allCandidates = $this->getCandidates();
+
+        foreach ($this->getTeams() as $team) {
+            if (!$team->isComplete()) {
+                $teamNeeds = $team->getTeamNeeds();
+                foreach ($teamNeeds as $needSpecialist => $neededQuantity) {
+                    for ($i = 0; $i < $neededQuantity; $i++) {
+                        $recruter = $hrTeam->recruters[$needSpecialist];
+                        $recruter->getSpecialist($allCandidates, $needSpecialist, $team);
+                    }
+                }
             }
         }
     }
 
     public function getFun()
     {
+        $teamInWork = [];
         foreach ($this->teams as $team) {
-            return $team->teamName . $team->doJob();
+            $teamInWork[] = $team->teamName . $team->doJob();
         }
+        return $teamInWork;
     }
 }

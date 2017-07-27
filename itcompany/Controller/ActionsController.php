@@ -6,14 +6,16 @@ class ActionsController
     public function actionBefore()
     {
         $model = new ITcompany();
-        $candidates = $model->candidates;
+        $candidates = $model->getCandidates();
 
-        require_once("./Views/before.php");
+        require("./Views/before.php");
     }
 
     public function actionAfter()
     {
         $model = new ITcompany();
-        $candidates = $model->candidates;
+        $teams = $model->getTeams();
+
+        require("./Views/after.php");
     }
 }

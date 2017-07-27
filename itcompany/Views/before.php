@@ -1,16 +1,14 @@
-<?php require_once("header.php")?>
+<?php require("header.php")?>
 <div class="left">
-    <h3>Before:</h3>
-    <p>
-        Список кандидатов
+    <h3>The list of candidates before hiring:</h3>
 
-    <?php
-        foreach ($candidates as $candidate) {
-            $eachCandidate = $candidate->name . " is " . $candidate->cv . " specialist, wants salary: "
-                           . $candidate->wantedSalary . "<br>";
-            echo $eachCandidate;
-        }
-    ?>
-    </p>
+    <?php foreach ($candidates as $candidate): ?>
+        <p>
+            Name: <?= $candidate->name; ?>.<br>
+            She is <?= $candidate->cv; ?> specialist.<br>
+            She wants such a salary: <?= $candidate->wantedSalary; ?>.<br>
+        </p>
+    <?php endforeach; ?>
+
 </div>
-<?php require_once("after.php")?>
+<?php require("footer.php")?>
