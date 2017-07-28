@@ -11,6 +11,4 @@
         </header>
 
         <main>
-            <a href="./index.php?action=actionBefore" class="link">List of candidates before:</a>
-            <a href="./index.php?action=actionAfter" class="link">List of teams after:</a>
-
+            
