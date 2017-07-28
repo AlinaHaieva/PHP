@@ -11,4 +11,7 @@
     <?php endforeach; ?>
 
 </div>
+
+<a href="./index.php?action=actionAfter" class="link">List of teams after:</a>
+
 <?php require("footer.php")?>
