@@ -75,6 +75,8 @@ class Team
         $this->teamMembers[] = $newMember;
 
         $this->unsetNeed($newMember->position);
+        
+        return $this->teamMembers;
     }
 
     public function unsetNeed($position) {
@@ -84,6 +86,8 @@ class Team
             }
             $this->needs[$need] = $neededQuantity;
         }
+        
+        return $this->needs;
     }
 
     public function doJob()
