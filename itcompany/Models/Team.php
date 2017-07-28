@@ -66,7 +66,7 @@ class Team
 
 //Is this syntax better?
 //        if (empty(array_filter($this->getTeamNeeds()))) {
-//             true;
+//        return true;
 //        }
 //        return false;
     }
