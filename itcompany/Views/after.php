@@ -1,4 +1,4 @@
-<?php require("header.php")?>
+
 <div class="right">
     <h3>The list of teams after hiring:</h3>
 
@@ -18,4 +18,3 @@
     <?php endforeach; ?>
 
 </div>
-<?php require("footer.php")?>
