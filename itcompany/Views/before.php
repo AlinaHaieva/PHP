@@ -12,6 +12,6 @@
 
 </div>
 
-<a href="./index.php?action=actionAfter" class="link">List of teams after:</a>
+<a href="./index.php?action=actionAfter" class="link">List of teams after hiring</a>
 
 <?php require("footer.php")?>
