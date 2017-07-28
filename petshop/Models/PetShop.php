@@ -17,9 +17,9 @@ class PetShop
     public function getAllPets()
     {
         $allPets = [];
-        $dbh = new PDO("mysql:host=localhost;dbname=db_petshop", "root", "");
+        $dbh = new PDO("mysql:host=localhost;dbname=db_tasks", "root", "");
 
-        $query = $dbh->query('SELECT * FROM petshop');
+        $query = $dbh->query('SELECT * FROM pet_shop');
 
         foreach ($query as $row) {
             $name = $row["name"];
