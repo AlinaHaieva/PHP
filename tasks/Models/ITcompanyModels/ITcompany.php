@@ -10,11 +10,6 @@ class ITcompany
     public $candidates = [];
     public $teams = [];
 
-    public function __construct()
-    {
-        $this->candidates = $this->getCandidates();
-    }
-
     public function getCandidates() {
         $dbh = new PDO("mysql:host=localhost;dbname=db_tasks", "root", "");
         $candidatesQuery = $dbh->query('SELECT * FROM it_candidates');
