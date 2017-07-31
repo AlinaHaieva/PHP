@@ -10,7 +10,7 @@ class ITcompany
     private $teams = [];
 
     public function getCandidatesObjectsArray() {
-        foreach (tasksDatabase::getAllCandidatesFromDB() as $row) {
+        foreach (TasksDatabase::getAllCandidatesFromDB() as $row) {
             $name = $row["name"];
             $wantedSalary = $row["wanted_salary"];
             $cv = $row["cv"];
@@ -25,7 +25,7 @@ class ITcompany
     }
 
     public function getTeamsObjectsArray() {
-        foreach (tasksDatabase::getAllTeamsFromDB() as $row) {
+        foreach (TasksDatabase::getAllTeamsFromDB() as $row) {
             $teamName = $row["name"];
             $project = $row["project"];
 
