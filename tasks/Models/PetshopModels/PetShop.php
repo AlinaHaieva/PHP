@@ -10,7 +10,7 @@ class PetShop
     private $petsArray = [];
 
     public function getAllPetsFromDB() {
-        $query = tasksDatabase::createTasksDb()->query('SELECT * FROM pet_shop');
+        $query = TasksDatabase::createTasksDb()->query('SELECT * FROM pet_shop');
 
         return $query;
     }
