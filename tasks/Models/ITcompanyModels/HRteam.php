@@ -1,9 +1,9 @@
 <?php
 
-require_once "PMRecruter.php";
-require_once "QCRecruter.php";
-require_once "DevRecruter.php";
-require_once "ConstantsIT.php";
+require_once "recruters/PMRecruter.php";
+require_once "recruters/QCRecruter.php";
+require_once "recruters/DevRecruter.php";
+require_once "specialists/ConstantsIT.php";
 
 class HRteam
 {

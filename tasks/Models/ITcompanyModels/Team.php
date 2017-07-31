@@ -1,16 +1,16 @@
 <?php
 
-require_once "ConstantsIT.php";
-require_once "Dev.php";
-require_once "QC.php";
-require_once "PM.php";
+require_once "specialists/ConstantsIT.php";
+require_once "specialists/Dev.php";
+require_once "specialists/QC.php";
+require_once "specialists/PM.php";
 
 class Team
 {
     public $teamName;
     public $project;
-    public $teamMembers = [];
-    public $needs = [];
+    private $teamMembers = [];
+    private $needs = [];
 
     public function __construct($teamName, $project)
     {
@@ -18,11 +18,8 @@ class Team
         $this->project = $project;
     }
 
-    public function getTeamMembers() {
-        $dbh = new PDO("mysql:host=localhost;dbname=db_tasks", "root", "");
-        $teamMembersQuery = $dbh->query('SELECT * FROM it_teams_members');
-
-        foreach ($teamMembersQuery as $row) {
+    public function getTeamMembersObjectsArray() {
+        foreach (tasksDatabase::getAllTeamsMembersFromDB() as $row) {
             $name = $row["name"];
             $salary = $row["salary"];
             $position = $row["position"];
@@ -36,15 +33,15 @@ class Team
                 $this->teamMembers[] = new PM($name, $salary, $position, $team);
             }
         }
+    }
 
+    public function getTeamsMembers()
+    {
         return $this->teamMembers;
     }
 
-    public function getTeamNeeds() {
-        $dbh = new PDO("mysql:host=localhost;dbname=db_tasks", "root", "");
-        $teamNeedsQuery = $dbh->query('SELECT * FROM it_teams_needs');
-
-        foreach ($teamNeedsQuery as $row) {
+    public function getTeamNeedsObjectsArray() {
+        foreach (tasksDatabase::getAllTeamsNeedsFromDB() as $row) {
             $devNeed = $row["dev_need"];
             $pmNeed = $row["pm_need"];
             $qcNeed = $row["qc_need"];
@@ -55,20 +52,19 @@ class Team
                 ConstantsIT::PM => $pmNeed
             ];
         }
+    }
 
+    public function getTeamNeeds()
+    {
         return $this->needs;
     }
 
     public function isComplete()
     {
-        //return true if associative array is empty:
-        return empty(array_filter($this->getTeamNeeds()));
+        $checkArrayContent = array_filter($this->needs);
 
-//Is this syntax better?
-//        if (empty(array_filter($this->getTeamNeeds()))) {
-//        return true;
-//        }
-//        return false;
+        //return true if associative array is empty:
+        return empty($checkArrayContent);
     }
 
     public function addTeamMember($newMember) {

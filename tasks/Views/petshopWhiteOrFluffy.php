@@ -1,7 +1,7 @@
 <?php require("petshopHeader.php") ?>
 <h3>White or fluffy pets:</h3>
 
-<?php foreach ($whiteOrFluffy as $pet): ?>
+<?php foreach ($data["whiteOrFluffy"] as $pet): ?>
     <p>
         Name: <?= $pet->name; ?>.<br>
         Costs: <?= $pet->price; ?>.<br>

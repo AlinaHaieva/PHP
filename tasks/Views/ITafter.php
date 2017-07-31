@@ -2,12 +2,12 @@
 <div class="right">
     <h3>The list of teams after hiring:</h3>
 
-    <?php foreach ($teams as $team): ?>
+    <?php foreach ($data["teams"] as $team): ?>
         <div class="teams">
             <b>Team name:</b> <?= $team->teamName ?>.<br>
             <b>Team project</b> is <?= $team->project; ?>.<br>
             <b>Team members</b> are:
-                <?php foreach ($team->teamMembers as $member):?>
+                <?php foreach ($team->getTeamsMembers() as $member):?>
                     <?php if ($team->teamName === $member->team):?>
                     <p>
                         Team member name is <?php print_r($member->name);?>.<br>

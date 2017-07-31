@@ -1,51 +1,50 @@
 ﻿<?php
-    require_once("Cat.php");
-    require_once("Dog.php");
-    require_once("Hamster.php");
-    require_once("Constants.php");
+    require_once "pets/Cat.php";
+    require_once "pets/Dog.php";
+    require_once "pets/Hamster.php";
+    require_once "pets/ConstantsPetShop.php";
+    require_once "tasksDatabase.php";
 
 class PetShop
 {
-    public $petsArray = [];
-    public $catsArray = [];
+    private $petsArray = [];
 
-    public function __construct()
-    {
-        $this->petsArray = $this->getAllPets();
+    public function getAllPetsFromDB() {
+        $query = tasksDatabase::createTasksDb()->query('SELECT * FROM pet_shop');
+
+        return $query;
     }
 
-    public function getAllPets()
+    public function createPetsObjectsArray()
     {
-        $allPets = [];
-        $dbh = new PDO("mysql:host=localhost;dbname=db_tasks", "root", "");
-
-        $query = $dbh->query('SELECT * FROM pet_shop');
-
-        foreach ($query as $row) {
+        foreach ($this->getAllPetsFromDB() as $row) {
             $name = $row["name"];
             $price = $row["price"];
             $color = $row["color"];
             $fluffiness = $row["fluffiness"];
             $type = $row["type"];
 
-            if ($type === Constants::PET_TYPE_CAT) {
-                $allPets[] = new Cat($name, $price, $color, $fluffiness, $type);
-            } elseif ($type === Constants::PET_TYPE_DOG) {
-                $allPets[] = new Dog($name, $price, $color, $fluffiness, $type);
-            } elseif ($type === Constants::PET_TYPE_HAMSTER) {
-                $allPets[] = new Dog($name, $price, $color, $fluffiness, $type);
+            if ($type === ConstantsPetShop::PET_TYPE_CAT) {
+                $this->petsArray[] = new Cat($name, $price, $color, $fluffiness, $type);
+            } elseif ($type === ConstantsPetShop::PET_TYPE_DOG) {
+                $this->petsArray[] = new Dog($name, $price, $color, $fluffiness, $type);
+            } elseif ($type === ConstantsPetShop::PET_TYPE_HAMSTER) {
+                $this->petsArray[] = new Dog($name, $price, $color, $fluffiness, $type);
             }
         }
+    }
 
-        return $allPets;
+    public function getAllPets()
+    {
+        return $this->petsArray;
     }
 
     public function getCats()
     {
         $catsArray = [];
 
-        foreach ($this->petsArray as $pet) {
-            if ($pet->type === Constants::PET_TYPE_CAT) {
+        foreach ($this->getAllPets() as $pet) {
+            if ($pet->type === ConstantsPetShop::PET_TYPE_CAT) {
                 $catsArray[] = $pet;
             }
         }
@@ -57,8 +56,8 @@ class PetShop
     {
         $whiteOrFluffyArray = [];
 
-        foreach($this->petsArray as $pet) {
-            if ($pet->color === Constants::PET_COLOR_WHITE || $pet->fluffiness > Constants::MIN_FLUFFY_LEVEL) {
+        foreach($this->getAllPets()as $pet) {
+            if ($pet->color === ConstantsPetShop::PET_COLOR_WHITE || $pet->fluffiness > ConstantsPetShop::MIN_FLUFFY_LEVEL) {
                 $whiteOrFluffyArray[] = $pet;
             }
         }
@@ -70,7 +69,7 @@ class PetShop
     {
         $price = [];
 
-        foreach ($this->petsArray as $pet) {
+        foreach ($this->getAllPets() as $pet) {
             $price[] = $pet->getPrice();
         }
 
@@ -83,7 +82,7 @@ class PetShop
     {
         $expensivePets = [];
 
-        foreach ($this->petsArray as $pet) {
+        foreach ($this->getAllPets() as $pet) {
             if ($pet->getPrice() > $this->averagePrice()) {
                 $expensivePets[] = $pet;
             }

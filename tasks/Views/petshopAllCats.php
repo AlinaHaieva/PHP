@@ -1,6 +1,6 @@
 <?php require("petshopHeader.php") ?>
 <h3>All cats:</h3>
-<?php foreach ($allCats as $cat): ?>
+<?php foreach ($data["allCats"] as $cat): ?>
     <p>
     Name: <?= $cat->name; ?>.<br>
     Costs: <?= $cat->price; ?>.<br>
