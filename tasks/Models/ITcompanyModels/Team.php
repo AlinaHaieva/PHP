@@ -19,7 +19,7 @@ class Team
     }
 
     public function getTeamMembersObjectsArray() {
-        foreach (tasksDatabase::getAllTeamsMembersFromDB() as $row) {
+        foreach (TasksDatabase::getAllTeamsMembersFromDB() as $row) {
             $name = $row["name"];
             $salary = $row["salary"];
             $position = $row["position"];
@@ -41,7 +41,7 @@ class Team
     }
 
     public function getTeamNeedsObjectsArray() {
-        foreach (tasksDatabase::getAllTeamsNeedsFromDB() as $row) {
+        foreach (TasksDatabase::getAllTeamsNeedsFromDB() as $row) {
             $devNeed = $row["dev_need"];
             $pmNeed = $row["pm_need"];
             $qcNeed = $row["qc_need"];
