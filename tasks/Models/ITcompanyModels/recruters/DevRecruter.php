@@ -7,7 +7,6 @@ class DevRecruter extends AbstractRecruter
     public function createSpecialist($candidate, $team)
     {
         $newDev = new Dev($candidate->name, $candidate->wantedSalary, $candidate->cv, $team->teamName);
-
-        $team->addTeamMember($newDev);
+        return $newDev;
     }
 }

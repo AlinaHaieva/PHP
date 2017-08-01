@@ -10,7 +10,7 @@ class ITcompany
     private $teams = [];
 
     public function getCandidatesObjectsArray() {
-        foreach (TasksDatabase::getAllCandidatesFromDB() as $row) {
+        foreach (tasksDatabase::getAllCandidatesFromDB() as $row) {
             $name = $row["name"];
             $wantedSalary = $row["wanted_salary"];
             $cv = $row["cv"];
@@ -21,11 +21,12 @@ class ITcompany
 
     public function getCandidates()
     {
+        $this->getCandidatesObjectsArray();
         return $this->candidates;
     }
 
     public function getTeamsObjectsArray() {
-        foreach (TasksDatabase::getAllTeamsFromDB() as $row) {
+        foreach (tasksDatabase::getAllTeamsFromDB() as $row) {
             $teamName = $row["name"];
             $project = $row["project"];
 
@@ -38,27 +39,31 @@ class ITcompany
         return $this->teams;
     }
 
-    public function gettingEachTeamNeeds() {
-        $needs = [];
-
-        foreach ($this->teams as $team) {
-            if (!$team->isComplete()) {
-                $needs[] = $team->getTeamNeeds();
-            }
-        }
-
-        return $needs;
+    public function hire()
+    {
+        $this->getTeamsObjectsArray();
+        $this->chooseTeam();
     }
 
-    public function hire()
+    private function chooseTeam()
+    {
+        foreach ($this->teams as $team) {
+            if (!$team->isComplete()) {
+                $this->chooseRecruter($team);
+            }
+        }
+    }
+
+    private function chooseRecruter($team)
     {
         $hrTeam = new HRteam();
         $allCandidates = $this->candidates;
 
-        foreach ($this->gettingEachTeamNeeds() as $needSpecialist => $neededQuantity) {
+        foreach ($team->getTeamNeeds() as $neededSpecialist => $neededQuantity) {
             for ($i = 0; $i < $neededQuantity; $i++) {
-                $recruter = $hrTeam->chooseRecruter($needSpecialist);
-                $recruter->getSpecialist($allCandidates, $needSpecialist, $team);
+                $recruter = $hrTeam->chooseRecruter($neededSpecialist);
+                $newSpecialist = $recruter->getSpecialist($allCandidates, $neededSpecialist, $team);
+                $team->addTeamMember($newSpecialist);
             }
         }
     }

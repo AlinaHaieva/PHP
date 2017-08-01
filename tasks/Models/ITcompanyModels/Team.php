@@ -19,7 +19,7 @@ class Team
     }
 
     public function getTeamMembersObjectsArray() {
-        foreach (TasksDatabase::getAllTeamsMembersFromDB() as $row) {
+        foreach (tasksDatabase::getAllTeamsMembersFromDB() as $row) {
             $name = $row["name"];
             $salary = $row["salary"];
             $position = $row["position"];
@@ -37,11 +37,12 @@ class Team
 
     public function getTeamsMembers()
     {
+        $this->getTeamMembersObjectsArray();
         return $this->teamMembers;
     }
 
     public function getTeamNeedsObjectsArray() {
-        foreach (TasksDatabase::getAllTeamsNeedsFromDB() as $row) {
+        foreach (tasksDatabase::getAllTeamsNeedsFromDB() as $row) {
             $devNeed = $row["dev_need"];
             $pmNeed = $row["pm_need"];
             $qcNeed = $row["qc_need"];
@@ -61,17 +62,12 @@ class Team
 
     public function isComplete()
     {
-        $checkArrayContent = array_filter($this->needs);
-
-        //return true if associative array is empty:
-        return empty($checkArrayContent);
+        return count($this->getTeamNeeds()) === 0;
     }
 
     public function addTeamMember($newMember) {
         $this->teamMembers[] = $newMember;
         $this->unsetNeed($newMember->position);
-
-        return $newMember;
     }
 
     public function unsetNeed($position) {

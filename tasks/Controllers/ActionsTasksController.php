@@ -7,10 +7,14 @@ require "View.php";
 class ActionsTasksController
 {
     private $view;
+    private $modelPetshop;
+    private $modelITcompany;
 
     public function __construct()
     {
         $this->view = new View();
+        $this->modelPetshop = new Petshop();
+        $this->modelITcompany = new ITcompany();
     }
 
     public function actionMainPage()
@@ -20,51 +24,36 @@ class ActionsTasksController
 
     public function actionCats()
     {
-        $modelPetshop = new Petshop();
-        $modelPetshop->createPetsObjectsArray();
-
-        $allCats = $modelPetshop->getCats();
+        $allCats = $this->modelPetshop->getCats();
 
         $this->view->render("Views/petshopAllCats.php", ["allCats"=>$allCats]);
     }
 
     public function actionWhiteFluffy()
     {
-        $modelPetshop = new Petshop();
-        $modelPetshop->createPetsObjectsArray();
-
-        $whiteOrFluffy = $modelPetshop->getWhiteOrFluffy();
+        $whiteOrFluffy = $this->modelPetshop->getWhiteOrFluffy();
 
         $this->view->render("./Views/petshopWhiteOrFluffy.php", ['whiteOrFluffy'=>$whiteOrFluffy]);
     }
 
     public function  actionExpensive()
     {
-        $modelPetshop = new Petshop();
-        $modelPetshop->createPetsObjectsArray();
-
-        $expensivePets = $modelPetshop->getExpensive();
+        $expensivePets = $this->modelPetshop->getExpensive();
 
         $this->view->render("./Views/petshopExpensivePets.php", ['expensivePets'=>$expensivePets]);
     }
 
     public function actionBefore()
     {
-        $modelITcompany = new ITcompany();
-        $modelITcompany->getCandidatesObjectsArray();
-
-        $candidates = $modelITcompany->getCandidates();
+        $candidates = $this->modelITcompany->getCandidates();
 
         $this->view->render("./Views/ITbefore.php", ['candidates'=>$candidates]);
     }
 
     public function actionAfter()
     {
-        $modelITcompany = new ITcompany();
-        $modelITcompany->getTeamsObjectsArray();
-
-        $modelITcompany->hire();
-        $teams = $modelITcompany->getTeams();
+        $this->modelITcompany->hire();
+        $teams = $this->modelITcompany->getTeams();
 
         $this->view->render("./Views/ITafter.php", ['teams'=>$teams]);
     }

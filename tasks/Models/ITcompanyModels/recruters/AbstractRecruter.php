@@ -4,15 +4,15 @@ abstract class AbstractRecruter
 {
     abstract function createSpecialist($candidate, $team);
 
-    public function isMatch($candidate, $needSpecialist)
+    public function isMatch($candidate, $neededSpecialist)
     {
-        return ($candidate->cv === $needSpecialist);
+        return ($candidate->cv === $neededSpecialist);
     }
 
-    public function getSpecialist($allCandidates, $needSpecialist, $team)
+    public function getSpecialist($allCandidates, $neededSpecialist, $team)
     {
         foreach ($allCandidates as $candidate) {
-            if ($this->isMatch($candidate, $needSpecialist)) {
+            if ($this->isMatch($candidate, $neededSpecialist)) {
                 $this->createSpecialist($candidate, $team);
             }
         }
