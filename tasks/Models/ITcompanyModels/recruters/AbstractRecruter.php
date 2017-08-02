@@ -13,7 +13,8 @@ abstract class AbstractRecruter
     {
         foreach ($allCandidates as $candidate) {
             if ($this->isMatch($candidate, $neededSpecialist)) {
-                $this->createSpecialist($candidate, $team);
+                $newSpecialist = $this->createSpecialist($candidate, $team);
+                $team->addTeamMember($newSpecialist);
             }
         }
     }

@@ -4,22 +4,31 @@
 
     <?php foreach ($data["teams"] as $team): ?>
         <div class="teams">
-            <b>Team name:</b> <?= $team->teamName ?>.<br>
+            <b>Team name:</b> <?= $team->teamName; ?>.<br>
             <b>Team project</b> is <?= $team->project; ?>.<br>
-            <b>Team members</b> are:
-                <?php foreach ($team->getTeamsMembers() as $member):?>
-                    <?php if ($team->teamName === $member->team):?>
-                    <p>
-                        Team member name is <?php print_r($member->name);?>.<br>
-                        She earns <?php print_r($member->salary);?>.<br>
-                        Her position is <?php print_r($member->position);?>.<br>
-                        She is a member of <?php print_r($member->team);?>.
-                    </p>
-                    <?php else: continue; ?>
-                    <?php endif;?>
-                <?php endforeach; ?>
+
+            <b>Team needs:</b>
+            <?php foreach ($team->getTeamNeeds() as $need=>$amount): ?>
+                <?php echo $need . ': ' . $amount;?>
+            <?php endforeach; ?><br>
+
+            <b>Team members</b> are:<br>
         </div>
+
+        <?php foreach ($team->getTeamsMembers() as $member):?>
+            <?php if ($team->teamName === $member->team):?>
+                <p>
+                    Team member name is <?= $member->name; ?>.<br>
+                    She earns <?= $member->salary; ?>.<br>
+                    Her position is <?= $member->position; ?>.<br>
+                    She is a member of <?= $member->team; ?>.
+                </p>
+            <?php endif;?>
+        <?php endforeach; ?>
+
     <?php endforeach; ?>
+
+
 
 </div>
 <?php require("footer.php") ?>

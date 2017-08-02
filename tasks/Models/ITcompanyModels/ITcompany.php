@@ -48,6 +48,8 @@ class ITcompany
     private function chooseTeam()
     {
         foreach ($this->teams as $team) {
+            $team->getTeamMembersObjectsArray();
+            $team->getTeamNeedsObjectsArray();
             if (!$team->isComplete()) {
                 $this->chooseRecruter($team);
             }
@@ -62,8 +64,7 @@ class ITcompany
         foreach ($team->getTeamNeeds() as $neededSpecialist => $neededQuantity) {
             for ($i = 0; $i < $neededQuantity; $i++) {
                 $recruter = $hrTeam->chooseRecruter($neededSpecialist);
-                $newSpecialist = $recruter->getSpecialist($allCandidates, $neededSpecialist, $team);
-                $team->addTeamMember($newSpecialist);
+                $recruter->getSpecialist($allCandidates, $neededSpecialist, $team);
             }
         }
     }

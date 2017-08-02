@@ -37,7 +37,6 @@ class Team
 
     public function getTeamsMembers()
     {
-        $this->getTeamMembersObjectsArray();
         return $this->teamMembers;
     }
 
